@@ -1,4 +1,4 @@
-package com.customernotes.CustomerNotes;
+package com.customernotes;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
