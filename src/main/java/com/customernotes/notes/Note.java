@@ -5,6 +5,7 @@ public class Note {
     private String title;
     private String privateNote;
     private String arrangements;
+    private Long customerId;
 
     public Long getId() {
         return id;
@@ -36,5 +37,13 @@ public class Note {
 
     public void setArrangements(String arrangements) {
         this.arrangements = arrangements;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 }

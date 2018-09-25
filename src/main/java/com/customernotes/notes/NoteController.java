@@ -1,35 +1,34 @@
 package com.customernotes.notes;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/notes")
 public class NoteController {
 
+    @Autowired
+    private NoteService service;
+
     @GetMapping
     public List<Note> getNotes() {
-        return getFakeNotes();
+        return service.getNotes();
     }
 
-    private List<Note> getFakeNotes() {
-        List<Note> notes = new ArrayList<>();
-        notes.add(createFakeNote(1L, "No arrangements", "Customer had funny tie", "Final negotiation"));
-        notes.add(createFakeNote(2L, "Arrangements 1", "Boring meeting", "Initial negotiation"));
-        notes.add(createFakeNote(3L, "Any other arrangements", "Nice office with big window with view to Warsaw", "Conversation about future contract"));
-        return notes;
+    @PostMapping
+    public Note createNote(@RequestBody Note note) {
+        return service.createNote(note);
     }
 
-    private Note createFakeNote(long id, String arrangements, String privateNote, String title) {
-        Note note = new Note();
-        note.setId(id);
-        note.setArrangements(arrangements);
-        note.setPrivateNote(privateNote);
-        note.setTitle(title);
-        return note;
+    @PutMapping("/{id}")
+    public Note updateNote(@PathVariable("id")Long id, @RequestBody Note note){
+        return service.updateNote(id, note);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteNote(@PathVariable("id")Long id){
+        service.deleteNote(id);
     }
 }
